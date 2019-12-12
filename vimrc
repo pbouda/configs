@@ -5,15 +5,14 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'branch': 'release/1.x', 'for': [] }
 call plug#end()
 
 autocmd BufWritePre *.py execute ':Black'
-autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
-autocmd FileType json setlocal shiftwidth=2 tabstop=2
-autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType markdown setlocal shiftwidth=4 tabstop=4 expandtab
 
 set backspace=indent,eol,start
+set tabstop=2 shiftwidth=2 expandtab
 set number
 set ruler
 set encoding=utf-8
@@ -24,6 +23,10 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|venv|node_modules)$',
   \ }
+
+let g:prettier#config#prose_wrap = 'always'
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
