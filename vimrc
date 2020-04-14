@@ -1,11 +1,11 @@
 call plug#begin('~/.vim/plugged')
-Plug 'psf/black'
+Plug 'psf/black', { 'tag': '19.10b0' }
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'prettier/vim-prettier', { 'do': 'npm install', 'branch': 'release/1.x', 'for': [] }
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'branch': 'release/1.x', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']}
 call plug#end()
 
 autocmd BufWritePre *.py execute ':Black'
@@ -31,6 +31,11 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+
+noremap <Leader>y "*y
+noremap <Leader>yy "*yy
+noremap <Leader>p "*p
+noremap <F12> :LspDefinition<CR>
 
 if executable('pyls')
     au User lsp_setup call lsp#register_server({
