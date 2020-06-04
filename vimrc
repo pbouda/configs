@@ -1,14 +1,9 @@
 call plug#begin('~/.vim/plugged')
-Plug 'psf/black', { 'tag': '19.10b0' }
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'prettier/vim-prettier', { 'do': 'npm install', 'branch': 'release/1.x', 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']}
+Plug 'dense-analysis/ale'
+Plug 'lifepillar/vim-solarized8'
 call plug#end()
 
-autocmd BufWritePre *.py execute ':Black'
 autocmd FileType markdown setlocal shiftwidth=4 tabstop=4 expandtab
 
 set backspace=indent,eol,start
@@ -24,10 +19,6 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|venv|node_modules)$',
   \ }
 
-let g:prettier#config#prose_wrap = 'always'
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
-
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
@@ -35,23 +26,14 @@ inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
 noremap <Leader>y "*y
 noremap <Leader>yy "*yy
 noremap <Leader>p "*p
-noremap <F12> :LspDefinition<CR>
 
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-    	\ 'workspace_config': {"pyls": {"configurationSources": ["flake8"]}},
-        \ 'whitelist': ['python'],
-        \ })
-endif
+let g:ale_fixers = {'javascript': ['prettier'], 'html': ['prettier'], 'markdown': ['prettier'], 'python': ['black']}
+let g:ale_fix_on_save = 1
+let g:ale_completion_tsserver_autoimport = 1
+let g:ale_completion_enabled = 1
+nmap <F12> :ALEGoToDefinition<CR>
+nmap <C-F12> :ALEGoToDefinitionInTab<CR>
 
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript'],
-        \ })
-endif
-
+set background=dark
+let g:solarized_termtrans=1
+colorscheme solarized8
