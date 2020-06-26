@@ -11,6 +11,9 @@ set tabstop=2 shiftwidth=2 expandtab
 set number
 set ruler
 set encoding=utf-8
+set splitbelow
+set splitright
+set autochdir
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -27,10 +30,32 @@ noremap <Leader>y "*y
 noremap <Leader>yy "*yy
 noremap <Leader>p "*p
 
-let g:ale_fixers = {'javascript': ['prettier'], 'html': ['prettier'], 'markdown': ['prettier'], 'python': ['black']}
+let g:ale_fixers = {
+  \ 'typescript': ['prettier'],
+  \ 'javascript': ['prettier'],
+  \ 'html': ['prettier'],
+  \ 'markdown': ['prettier'],
+  \ 'css': ['prettier'],
+  \ 'scss': ['prettier'],
+  \ 'python': ['black']
+\ }
+let g:ale_linters = {
+  \ 'python': ['pyls', 'flake8', 'mypy']
+  \ }
 let g:ale_fix_on_save = 1
+let g:ale_python_pyls_config = {
+\ 'pyls': {
+\   'plugins': {
+\     'pycodestyle': {
+\       'enabled': v:false
+\     },
+\   }
+\ }
+\}
 let g:ale_completion_tsserver_autoimport = 1
-let g:ale_completion_enabled = 1
+let g:ale_javascript_prettier_options = '--prose-wrap always'
+let g:ale_completion_enabled = 0
+let g:ale_echo_msg_format = '%linter% says %s'
 nmap <F12> :ALEGoToDefinition<CR>
 nmap <C-F12> :ALEGoToDefinitionInTab<CR>
 
