@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
 Plug 'lifepillar/vim-solarized8'
+Plug 'tomtom/tcomment_vim'
 call plug#end()
 
 autocmd FileType markdown setlocal shiftwidth=4 tabstop=4 expandtab
@@ -13,7 +14,6 @@ set ruler
 set encoding=utf-8
 set splitbelow
 set splitright
-set autochdir
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -52,9 +52,9 @@ let g:ale_python_pyls_config = {
 \   }
 \ }
 \}
-let g:ale_completion_tsserver_autoimport = 1
+let g:ale_completion_autoimport = 1
 let g:ale_javascript_prettier_options = '--prose-wrap always'
-let g:ale_completion_enabled = 0
+let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '%linter% says %s'
 nmap <F12> :ALEGoToDefinition<CR>
 nmap <C-F12> :ALEGoToDefinitionInTab<CR>
@@ -62,3 +62,6 @@ nmap <C-F12> :ALEGoToDefinitionInTab<CR>
 set background=dark
 let g:solarized_termtrans=1
 colorscheme solarized8
+
+set exrc
+set secure
