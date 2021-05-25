@@ -14,12 +14,13 @@ set ruler
 set encoding=utf-8
 set splitbelow
 set splitright
+set noswapfile
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|venv|node_modules)$',
+  \ 'dir':  '\v[\/](\.git|venv|node_modules|data)$',
   \ }
 
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -40,7 +41,7 @@ let g:ale_fixers = {
   \ 'python': ['black']
 \ }
 let g:ale_linters = {
-  \ 'python': ['pyls', 'flake8', 'mypy']
+  \ 'python': ['pyls', 'pylama', 'mypy']
   \ }
 let g:ale_fix_on_save = 1
 let g:ale_python_pyls_config = {
@@ -58,6 +59,8 @@ let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '%linter% says %s'
 nmap <F12> :ALEGoToDefinition<CR>
 nmap <C-F12> :ALEGoToDefinitionInTab<CR>
+nmap <silent> <leader>j :ALENext<CR>
+nmap <silent> <leader>k :ALEPrevious<CR>
 
 set background=dark
 let g:solarized_termtrans=1
