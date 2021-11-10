@@ -38,7 +38,7 @@ let g:ale_fixers = {
   \ 'markdown': ['prettier'],
   \ 'css': ['prettier'],
   \ 'scss': ['prettier'],
-  \ 'python': ['black']
+  \ 'python': ['black', 'isort']
 \ }
 let g:ale_linters = {
   \ 'python': ['pyls', 'pylama', 'mypy']
