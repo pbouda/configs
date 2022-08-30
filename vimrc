@@ -1,7 +1,6 @@
 call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
-Plug 'lifepillar/vim-solarized8'
 Plug 'tomtom/tcomment_vim'
 call plug#end()
 
@@ -41,15 +40,18 @@ let g:ale_fixers = {
   \ 'python': ['black', 'isort']
 \ }
 let g:ale_linters = {
-  \ 'python': ['pyls', 'pylama', 'mypy']
+  \ 'python': ['pylsp', 'pylama', 'mypy']
   \ }
 let g:ale_fix_on_save = 1
-let g:ale_python_pyls_config = {
-\ 'pyls': {
+let g:ale_python_pylsp_config = {
+\ 'pylsp': {
 \   'plugins': {
 \     'pycodestyle': {
 \       'enabled': v:false
 \     },
+\     'pylama': {
+\       'enabled': v:true
+\     }
 \   }
 \ }
 \}
@@ -61,10 +63,6 @@ nmap <F12> :ALEGoToDefinition<CR>
 nmap <C-F12> :ALEGoToDefinitionInTab<CR>
 nmap <silent> <leader>j :ALENext<CR>
 nmap <silent> <leader>k :ALEPrevious<CR>
-
-set background=dark
-let g:solarized_termtrans=1
-colorscheme solarized8
 
 set exrc
 set secure
